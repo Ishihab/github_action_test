@@ -16,10 +16,10 @@ jobs:
           username: ${{ secrtes.DOCKERHUB_USERNAME  }}
           password: ${{ secrets.DOCKERHUB_TOKEN  }}
 
-      -name: Build and push docker image
-       uses: docker/build-push-action@v6
-       with:
-         context: .
-         push: true
-         tags: Ishihab/my_awesome_wesite:latest
+      - name: Build and push docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: Ishihab/my_awesome_wesite:latest
         

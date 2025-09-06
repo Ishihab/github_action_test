@@ -22,4 +22,20 @@ jobs:
           context: .
           push: true
           tags: 0142365870/my_awesome_wesite:latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            docker pull 0142365870/my-awesome-website:latest
+            docker stop my-awesome-website || true
+            docker rm my-awesome-website || true
+            docker run -d --name my-awesome-website -p 80:80 0142365870/my-awesome-website:latest
         
